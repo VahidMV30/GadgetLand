@@ -1,5 +1,7 @@
 using GadgetLand.Api.Middlewares;
+using GadgetLand.Api.Services;
 using GadgetLand.Application;
+using GadgetLand.Application.Interfaces.Services;
 using GadgetLand.Infrastructure;
 using GadgetLand.Infrastructure.Persistence;
 
@@ -15,7 +17,14 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddScoped<IImageUploader, ImageUploader>();
+
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

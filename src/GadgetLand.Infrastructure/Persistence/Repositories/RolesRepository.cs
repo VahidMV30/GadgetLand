@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GadgetLand.Infrastructure.Persistence.Repositories;
 
-public class RolesRepository(GadgetLandDbContext dbContext) : IRolesRepository
+public class RolesRepository(GadgetLandDbContext dbContext) : RepositoryBase<int, Role>(dbContext), IRolesRepository
 {
     public async Task<Role?> GetByNameAsync(string name)
     {

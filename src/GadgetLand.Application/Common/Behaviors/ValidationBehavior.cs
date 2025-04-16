@@ -14,7 +14,7 @@ public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TReq
 
         var failures = validationResults.SelectMany(result => result.Errors).Where(f => f != null).ToList();
 
-        if (failures.Count == 0) return await next();
+        if (failures.Count == 0) return await next(cancellationToken);
 
         var errors = failures
             .Select(failure => Error.Validation(
