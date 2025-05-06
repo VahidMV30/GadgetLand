@@ -1,5 +1,7 @@
 using GadgetLand.Api.Middlewares;
+using GadgetLand.Api.Services;
 using GadgetLand.Application;
+using GadgetLand.Application.Interfaces.Services;
 using GadgetLand.Infrastructure;
 using GadgetLand.Infrastructure.Persistence;
 
@@ -9,11 +11,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.WithOrigins("http://192.168.1.3:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        policy.WithOrigins("http://192.168.1.4:5173").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     });
 });
 
 builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
+
+builder.Services.AddScoped<IImageUploader, ImageUploader>();
 
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
