@@ -3,6 +3,7 @@ using GadgetLand.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GadgetLand.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GadgetLandDbContext))]
-    partial class GadgetLandDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250508075736_CreateBrandModel")]
+    partial class CreateBrandModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
