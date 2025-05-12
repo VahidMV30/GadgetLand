@@ -11,5 +11,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(x => x.Name).HasMaxLength(256).IsRequired();
         builder.Property(x => x.Slug).HasMaxLength(256).IsRequired();
         builder.Property(x => x.Image).HasMaxLength(256).IsRequired();
+
+        builder.HasMany(x => x.Products).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId);
     }
 }

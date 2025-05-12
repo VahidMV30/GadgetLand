@@ -23,7 +23,7 @@ public class CreateCategoryCommandHandler(
 
         var existingCategory = await categoriesRepository.ExistsAsync(x => x.Name == request.Name || x.Slug == request.Slug);
 
-        if (existingCategory is true) return CategoryErrors.Duplicate;
+        if (existingCategory) return CategoryErrors.Duplicate;
 
         var category = mapper.Map<Category>(request);
         category.Image = await imageUploader.UploadImageAsync(request.Image, "categories");
