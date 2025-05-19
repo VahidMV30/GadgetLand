@@ -39,5 +39,16 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
         RuleFor(x => x.Description)
             .NotEmpty().WithMessage("لطفا توضیحات را وارد نمایید.")
             .Length(20, 1024).WithMessage("توضیحات باید حداقل 20 و حداکثر 1024 کاراکتر باشد.");
+
+        RuleFor(x => x)
+            .Must(x =>
+            {
+                if (string.IsNullOrWhiteSpace(x.DiscountPrice)) return true;
+
+                var price = x.Price.ParsePriceToLong();
+                var discountPrice = x.DiscountPrice.ParsePriceToLong();
+
+                return discountPrice < price;
+            }).WithMessage("قیمت تخفیف نباید بزرگتر یا مساوی قیمت اصلی باشد.");
     }
 }

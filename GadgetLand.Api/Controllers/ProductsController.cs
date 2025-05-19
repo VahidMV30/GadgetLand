@@ -1,7 +1,7 @@
 ﻿using GadgetLand.Application.Features.Products.Commands.CreateProduct;
 using GadgetLand.Application.Features.Products.Commands.UpdateProduct;
 using GadgetLand.Application.Features.Products.Queries.GetProductById;
-using GadgetLand.Application.Features.Products.Queries.GetProductsWithDetailsQuery;
+using GadgetLand.Application.Features.Products.Queries.GetProductsForAdminTable;
 using GadgetLand.Contracts.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -14,9 +14,9 @@ public class ProductsController(IMediator mediator) : ApiController
 {
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetProductsWithDetails()
+    public async Task<IActionResult> GetProductsForAdminTable()
     {
-        var query = new GetProductsWithDetailsQuery();
+        var query = new GetProductsForAdminTableQuery();
 
         var result = await mediator.Send(query);
 

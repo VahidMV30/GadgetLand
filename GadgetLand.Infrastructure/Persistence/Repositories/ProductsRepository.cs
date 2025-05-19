@@ -10,32 +10,35 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
 {
     private readonly IDbConnection _dbConnection = dbContext.Database.GetDbConnection();
 
-    public async Task<IEnumerable<Product>> GetProductsWithDetailsAsync()
+    public async Task<Product?> GetProductByIdAsync(int id)
     {
-        const string query = "EXEC GetProductsWithDetails";
+        return await dbContext.Products
+            .Include(x => x.Category)
+            .Include(x => x.Brand)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<IEnumerable<Product>> GetProductsForAdminTableAsync()
+    {
+        const string query = "EXEC GetProductsForAdminTable";
 
         var productDictionary = new Dictionary<int, Product>();
 
-        await _dbConnection.QueryAsync<Product, Category, Brand, ProductImage, Product>(
+        await _dbConnection.QueryAsync<Product, Category, Brand, Product>(
             query,
-            (product, category, brand, productImage) =>
+            (product, category, brand) =>
             {
-                if (!productDictionary.TryGetValue(product.Id, out var existingProduct))
-                {
-                    existingProduct = product;
-                    existingProduct.Category = category;
-                    existingProduct.Brand = brand;
-                    existingProduct.ProductImages = new List<ProductImage>();
-                    productDictionary.Add(existingProduct.Id, existingProduct);
-                }
+                if (productDictionary.TryGetValue(product.Id, out var existingProduct)) return existingProduct;
 
-                existingProduct.ProductImages.Add(productImage);
+                existingProduct = product;
+                existingProduct.Category = category;
+                existingProduct.Brand = brand;
+                productDictionary.Add(existingProduct.Id, existingProduct);
 
                 return existingProduct;
             },
             splitOn: "Id,Id,Id"
         );
-
 
         return productDictionary.Values;
     }

@@ -12,12 +12,6 @@ public class ProductMappings : Profile
     public ProductMappings()
     {
         CreateMap<Product, ProductResponse>()
-            .ForMember(dest => dest.Price, opt =>
-                opt.MapFrom(src => src.Price.ParsePriceToString()))
-            .ForMember(dest => dest.DiscountPrice, opt =>
-                opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()));
-
-        CreateMap<Product, ProductDetailsResponse>()
             .ForMember(dest => dest.CategoryName, opt =>
                 opt.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.BrandName, opt =>
@@ -25,9 +19,17 @@ public class ProductMappings : Profile
             .ForMember(dest => dest.Price, opt =>
                 opt.MapFrom(src => src.Price.ParsePriceToString()))
             .ForMember(dest => dest.DiscountPrice, opt =>
-                opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()))
-            .ForMember(dest => dest.Images, opt =>
-                opt.MapFrom(src => src.ProductImages.Select(x => x.Image)));
+                opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()));
+
+        CreateMap<Product, ProductsForAdminTableResponse>()
+            .ForMember(dest => dest.CategoryName, opt =>
+                opt.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.BrandName, opt =>
+                opt.MapFrom(src => src.Brand.Name))
+            .ForMember(dest => dest.Price, opt =>
+                opt.MapFrom(src => src.Price.ParsePriceToString()))
+            .ForMember(dest => dest.DiscountPrice, opt =>
+                opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()));
 
         CreateMap<CreateProductCommand, Product>()
             .ForMember(dest => dest.Price,
