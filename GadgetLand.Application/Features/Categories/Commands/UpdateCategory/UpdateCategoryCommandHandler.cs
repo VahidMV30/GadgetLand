@@ -30,9 +30,14 @@ public class UpdateCategoryCommandHandler(
         var updatedCategory = mapper.Map(request, category);
 
         if (request.Image is not null)
+        {
+            imageUploader.DeleteImage(category.Image, "categories");
             updatedCategory.Image = await imageUploader.UploadImageAsync(request.Image, "categories");
+        }
         else
+        {
             updatedCategory.Image = category.Image;
+        }
 
         categoriesRepository.Update(updatedCategory);
         await unitOfWork.CommitChangesAsync();

@@ -31,6 +31,10 @@ public class ProductMappings : Profile
             .ForMember(dest => dest.DiscountPrice, opt =>
                 opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()));
 
+        CreateMap<Product, ProductWithImagesResponse>()
+            .ForMember(dest => dest.Images, opt =>
+                opt.MapFrom(src => src.ProductImages.Select(x => x.Image)));
+
         CreateMap<CreateProductCommand, Product>()
             .ForMember(dest => dest.Price,
                 opt => opt.MapFrom(src => src.Price.ParsePriceToLong()))

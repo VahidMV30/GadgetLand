@@ -42,4 +42,24 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
 
         return productDictionary.Values;
     }
+
+    public async Task<Product?> GetProductWithImagesByIdAsync(int id)
+    {
+        return await dbContext.Products.Include(x => x.ProductImages).FirstOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<IEnumerable<ProductImage>> GetProductImagesByFileNamesAsync(string[] imageNames)
+    {
+        return await dbContext.ProductImages.Where(x => imageNames.Contains(x.Image)).ToListAsync();
+    }
+
+    public void RemoveProductImages(IEnumerable<ProductImage> productImages)
+    {
+        dbContext.ProductImages.RemoveRange(productImages);
+    }
+
+    public async Task CreateProductImagesAsync(IEnumerable<ProductImage> entities)
+    {
+        await dbContext.ProductImages.AddRangeAsync(entities);
+    }
 }

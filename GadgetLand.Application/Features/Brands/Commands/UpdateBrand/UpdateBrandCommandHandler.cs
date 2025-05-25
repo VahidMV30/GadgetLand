@@ -29,9 +29,14 @@ public class UpdateBrandCommandHandler(
         var updatedBrand = mapper.Map(request, brand);
 
         if (request.Image is not null)
+        {
+            imageUploader.DeleteImage(brand.Image, "brands");
             updatedBrand.Image = await imageUploader.UploadImageAsync(request.Image, "brands");
+        }
         else
+        {
             updatedBrand.Image = brand.Image;
+        }
 
         brandsRepository.Update(updatedBrand);
         await unitOfWork.CommitChangesAsync();

@@ -30,9 +30,14 @@ public class UpdateProductCommandHandler(
         var updatedProduct = mapper.Map(request, product);
 
         if (request.Image is not null)
+        {
+            imageUploader.DeleteImage(product.Image, "products");
             updatedProduct.Image = await imageUploader.UploadImageAsync(request.Image, "products");
+        }
         else
+        {
             updatedProduct.Image = product.Image;
+        }
 
         productsRepository.Update(updatedProduct);
         await unitOfWork.CommitChangesAsync();
