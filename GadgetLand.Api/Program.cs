@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using GadgetLand.Api.Middlewares;
 using GadgetLand.Api.Services;
 using GadgetLand.Application;
@@ -23,6 +24,10 @@ builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {
         options.SuppressModelStateInvalidFilter = true;
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
 builder.Services.AddEndpointsApiExplorer();
