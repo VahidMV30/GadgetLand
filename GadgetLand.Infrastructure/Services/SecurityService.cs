@@ -48,6 +48,11 @@ public class SecurityService(IConfiguration configuration, IHttpContextAccessor 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    public string GetUserIdFromToken()
+    {
+        return httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+    }
+
     public string GetEmailFromToken()
     {
         return httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.Email)!;

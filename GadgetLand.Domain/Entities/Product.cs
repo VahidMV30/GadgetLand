@@ -19,4 +19,5 @@ public class Product
     public string Description { get; set; } = string.Empty;
 
     public ICollection<ProductImage> ProductImages { get; set; } = [];
+    public ICollection<Review> Reviews { get; set; } = [];
 }

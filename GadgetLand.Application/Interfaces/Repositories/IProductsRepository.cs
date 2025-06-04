@@ -1,4 +1,5 @@
-﻿using GadgetLand.Domain.Entities;
+﻿using GadgetLand.Contracts.Products;
+using GadgetLand.Domain.Entities;
 
 namespace GadgetLand.Application.Interfaces.Repositories;
 
@@ -10,4 +11,7 @@ public interface IProductsRepository : IBaseRepository<int, Product>
     Task<IEnumerable<ProductImage>> GetProductImagesByFileNamesAsync(string[] imageNames);
     void RemoveProductImages(IEnumerable<ProductImage> productImages);
     Task CreateProductImagesAsync(IEnumerable<ProductImage> entities);
+    Task<(int totalCount, IEnumerable<Product> products)> GetProductsWithFiltersAsync(
+        string? categorySlug, string? brandSlug, bool onlyDiscounted, ProductSortOrder sortOrder, int pageIndex, int pageSize);
+    Task<Product?> GetProductDetailsBySlugAsync(string slug);
 }

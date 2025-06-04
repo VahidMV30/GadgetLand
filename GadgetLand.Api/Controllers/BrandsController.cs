@@ -13,7 +13,6 @@ namespace GadgetLand.Api.Controllers;
 public class BrandsController(IMediator mediator) : ApiController
 {
     [HttpGet]
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
     {
         var query = new GetAllBrandsQuery();

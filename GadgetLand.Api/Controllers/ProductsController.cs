@@ -2,6 +2,7 @@
 using GadgetLand.Application.Features.Products.Commands.ModifyProductImages;
 using GadgetLand.Application.Features.Products.Commands.UpdateProduct;
 using GadgetLand.Application.Features.Products.Queries.GetProductById;
+using GadgetLand.Application.Features.Products.Queries.GetProductDetailsBySlug;
 using GadgetLand.Application.Features.Products.Queries.GetProductsForAdminTable;
 using GadgetLand.Application.Features.Products.Queries.GetProductsWithFilters;
 using GadgetLand.Application.Features.Products.Queries.GetProductWithImagesById;
@@ -56,6 +57,16 @@ public class ProductsController(IMediator mediator) : ApiController
         var result = await mediator.Send(query);
 
         return Ok(result);
+    }
+
+    [HttpGet("product-details/{slug}")]
+    public async Task<IActionResult> GetProductDetailsBySlug(string slug)
+    {
+        var query = new GetProductDetailsBySlugQuery(slug);
+
+        var result = await mediator.Send(query);
+
+        return result.Match(Ok, Problem);
     }
 
     [HttpPost]

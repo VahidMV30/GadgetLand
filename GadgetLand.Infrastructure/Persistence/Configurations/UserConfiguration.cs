@@ -13,5 +13,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Password).IsRequired();
 
         builder.HasOne(x => x.Role).WithMany(x => x.Users).HasForeignKey(x => x.RoleId);
+        builder.HasMany(x => x.Reviews).WithOne(x => x.User).HasForeignKey(x => x.UserId);
     }
 }
