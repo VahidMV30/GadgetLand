@@ -18,7 +18,7 @@ public class ProductsController(IMediator mediator) : ApiController
 {
     [HttpGet("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetProductById(int id)
     {
         var query = new GetProductByIdQuery(id);
 
@@ -71,7 +71,7 @@ public class ProductsController(IMediator mediator) : ApiController
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create([FromForm] CreateProductRequest request)
+    public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
     {
         var command = new CreateProductCommand(request.CategoryId, request.BrandId, request.Name, request.Slug,
             request.Image, request.Price, request.DiscountPrice, request.QuantityInStock, request.Description);
@@ -83,7 +83,7 @@ public class ProductsController(IMediator mediator) : ApiController
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromForm] UpdateProductRequest request)
+    public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
     {
         var command = new UpdateProductCommand(request.Id, request.CategoryId, request.BrandId, request.Name,
             request.Slug, request.Image, request.Price, request.DiscountPrice, request.QuantityInStock, request.Description);

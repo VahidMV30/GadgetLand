@@ -10,4 +10,23 @@ public class ReviewsRepository(GadgetLandDbContext dbContext) : BaseRepository<i
     {
         return await dbContext.Reviews.FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == productId);
     }
+
+    public async Task<IEnumerable<Review>> GetAllReviewsAsync()
+    {
+        return await dbContext.Reviews
+            .Include(x => x.User)
+            .Include(x => x.Product)
+            .Where(x => x.IsDeleted == false)
+            .OrderByDescending(x => x.IsConfirmed == false)
+            .ThenByDescending(x => x.CreatedAt)
+            .ToListAsync();
+    }
+
+    public async Task<Review?> GetReviewByIdAsync(int id)
+    {
+        return await dbContext.Reviews
+            .Include(x => x.User)
+            .Include(x => x.Product)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

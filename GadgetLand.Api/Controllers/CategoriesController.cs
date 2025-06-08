@@ -13,7 +13,7 @@ namespace GadgetLand.Api.Controllers;
 public class CategoriesController(IMediator mediator) : ApiController
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllCategories()
     {
         var query = new GetAllCategoriesQuery();
 
@@ -24,7 +24,7 @@ public class CategoriesController(IMediator mediator) : ApiController
 
     [HttpGet("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetCategoryById(int id)
     {
         var query = new GetCategoryByIdQuery(id);
 
@@ -35,7 +35,7 @@ public class CategoriesController(IMediator mediator) : ApiController
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create([FromForm] CreateCategoryRequest request)
+    public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
     {
         var command = new CreateCategoryCommand(request.Name, request.Slug, request.Image);
 
@@ -46,7 +46,7 @@ public class CategoriesController(IMediator mediator) : ApiController
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromForm] UpdateCategoryRequest request)
+    public async Task<IActionResult> UpdateCategory([FromForm] UpdateCategoryRequest request)
     {
         var command = new UpdateCategoryCommand(request.Id, request.Name, request.Slug, request.Image);
 

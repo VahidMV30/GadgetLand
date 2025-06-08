@@ -14,4 +14,5 @@ public class Review
     public string Comment { get; set; } = string.Empty;
     public bool IsConfirmed { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public bool IsDeleted { get; set; }
 }

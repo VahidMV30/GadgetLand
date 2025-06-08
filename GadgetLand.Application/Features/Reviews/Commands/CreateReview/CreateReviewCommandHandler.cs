@@ -8,7 +8,7 @@ using GadgetLand.Contracts;
 using GadgetLand.Domain.Entities;
 using MediatR;
 
-namespace GadgetLand.Application.Features.Reviews.Commands;
+namespace GadgetLand.Application.Features.Reviews.Commands.CreateReview;
 
 public class CreateReviewCommandHandler(
     IProductsRepository productsRepository,

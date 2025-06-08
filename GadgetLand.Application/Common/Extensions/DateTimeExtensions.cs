@@ -27,7 +27,7 @@ public static class DateTimeExtensions
         var minute = pc.GetMinute(dateTime);
         var second = pc.GetSecond(dateTime);
 
-        return $"{year:0000}/{month:00}/{day:00} {hour:00}:{minute:00}:{second:00}";
+        return $"{hour:00}:{minute:00}:{second:00} - {year:0000}/{month:00}/{day:00}";
     }
 
     public static DateTime ToGregorianDateTime(this string persianDateTime)

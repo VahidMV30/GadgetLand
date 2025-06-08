@@ -13,7 +13,7 @@ namespace GadgetLand.Api.Controllers;
 public class BrandsController(IMediator mediator) : ApiController
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllBrands()
     {
         var query = new GetAllBrandsQuery();
 
@@ -24,7 +24,7 @@ public class BrandsController(IMediator mediator) : ApiController
 
     [HttpGet("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetBrandById(int id)
     {
         var query = new GetBrandByIdQuery(id);
 
@@ -35,7 +35,7 @@ public class BrandsController(IMediator mediator) : ApiController
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create([FromForm] CreateBrandRequest request)
+    public async Task<IActionResult> CreateBrand([FromForm] CreateBrandRequest request)
     {
         var command = new CreateBrandCommand(request.Name, request.Slug, request.Image);
 
@@ -46,7 +46,7 @@ public class BrandsController(IMediator mediator) : ApiController
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromForm] UpdateBrandRequest request)
+    public async Task<IActionResult> UpdateBrand([FromForm] UpdateBrandRequest request)
     {
         var command = new UpdateBrandCommand(request.Id, request.Name, request.Slug, request.Image);
 

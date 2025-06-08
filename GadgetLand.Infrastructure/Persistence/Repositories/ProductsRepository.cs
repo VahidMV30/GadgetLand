@@ -91,7 +91,7 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
             .Include(x => x.Category)
             .Include(x => x.Brand)
             .Include(x => x.ProductImages)
-            .Include(x => x.Reviews.Where(y => y.IsConfirmed).OrderByDescending(y => y.CreatedAt))
+            .Include(x => x.Reviews.Where(y => y.IsConfirmed && y.IsDeleted == false).OrderByDescending(y => y.CreatedAt))
             .ThenInclude(x => x.User)
             .FirstOrDefaultAsync(x => x.Slug == slug);
     }

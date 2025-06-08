@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace GadgetLand.Application.Features.Reviews.Commands;
+namespace GadgetLand.Application.Features.Reviews.Commands.CreateReview;
 
 public class CreateReviewCommandValidator : AbstractValidator<CreateReviewCommand>
 {
