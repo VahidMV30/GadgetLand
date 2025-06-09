@@ -1,6 +1,7 @@
 ﻿using GadgetLand.Application.Features.Products.Commands.CreateProduct;
 using GadgetLand.Application.Features.Products.Commands.ModifyProductImages;
 using GadgetLand.Application.Features.Products.Commands.UpdateProduct;
+using GadgetLand.Application.Features.Products.Queries.GetCartProductsByIds;
 using GadgetLand.Application.Features.Products.Queries.GetProductById;
 using GadgetLand.Application.Features.Products.Queries.GetProductDetailsBySlug;
 using GadgetLand.Application.Features.Products.Queries.GetProductsForAdminTable;
@@ -102,5 +103,15 @@ public class ProductsController(IMediator mediator) : ApiController
         var result = await mediator.Send(command);
 
         return result.Match(Ok, Problem);
+    }
+
+    [HttpPost("cart-products")]
+    public async Task<IActionResult> GetCartProductsByIds(List<int> ids)
+    {
+        var query = new GetCartProductsByIdsQuery(ids);
+
+        var result = await mediator.Send(query);
+
+        return Ok(result);
     }
 }

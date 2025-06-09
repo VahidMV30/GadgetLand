@@ -14,4 +14,5 @@ public interface IProductsRepository : IBaseRepository<int, Product>
     Task<(int totalCount, IEnumerable<Product> products)> GetProductsWithFiltersAsync(
         string? categorySlug, string? brandSlug, bool onlyDiscounted, ProductSortOrder sortOrder, int pageIndex, int pageSize);
     Task<Product?> GetProductDetailsBySlugAsync(string slug);
+    Task<IEnumerable<Product>> GetCartProductsByIdsAsync(List<int> ids);
 }

@@ -89,5 +89,11 @@ public class ProductMappings : Profile
                 opt.MapFrom(src => src.User.FullName))
             .ForMember(dest => dest.CreatedAt, opt =>
                 opt.MapFrom(src => src.CreatedAt.ToPersianDateString()));
+
+        CreateMap<Product, CartProductResponse>()
+            .ForMember(dest => dest.StringPrice, opt =>
+                opt.MapFrom(src => src.Price.ParsePriceToString()))
+            .ForMember(dest => dest.StringDiscountPrice, opt =>
+                opt.MapFrom(src => src.DiscountPrice.ParsePriceToString()));
     }
 }

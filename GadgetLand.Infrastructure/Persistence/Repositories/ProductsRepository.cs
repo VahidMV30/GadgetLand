@@ -95,4 +95,9 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
             .ThenInclude(x => x.User)
             .FirstOrDefaultAsync(x => x.Slug == slug);
     }
+
+    public async Task<IEnumerable<Product>> GetCartProductsByIdsAsync(List<int> ids)
+    {
+        return await dbContext.Products.Where(x => ids.Contains(x.Id)).ToListAsync();
+    }
 }
