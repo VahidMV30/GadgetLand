@@ -10,4 +10,12 @@ public class UsersRepository(GadgetLandDbContext dbContext) : BaseRepository<int
     {
         return await dbContext.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.Email == email);
     }
+
+    public async Task<User?> GetUserAddressInfoByIdAsync(int id)
+    {
+        return await dbContext.Users
+            .Include(x => x.City)
+            .ThenInclude(x => x!.Province)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }
