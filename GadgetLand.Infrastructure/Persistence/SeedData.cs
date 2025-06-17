@@ -23,15 +23,21 @@ public static class SeedData
             dbContext.SaveChanges();
         }
 
-        if (dbContext.Users.Any()) return;
-
-        dbContext.Users.Add(new User
+        if (dbContext.Users.Any() is false)
         {
-            RoleId = 1,
-            FullName = configuration["AuthSettings:AdminUser:FullName"]!,
-            Email = configuration["AuthSettings:AdminUser:Email"]!,
-            Password = BCrypt.Net.BCrypt.HashPassword(configuration["AuthSettings:AdminUser:Password"]!),
-        });
+            dbContext.Users.Add(new User
+            {
+                RoleId = 1,
+                FullName = configuration["AuthSettings:AdminUser:FullName"]!,
+                Email = configuration["AuthSettings:AdminUser:Email"]!,
+                Password = BCrypt.Net.BCrypt.HashPassword(configuration["AuthSettings:AdminUser:Password"]!),
+            });
+        }
+
+        if (dbContext.Settings.Any() is false)
+        {
+            dbContext.Settings.Add(new Setting { ShippingCost = 75000 });
+        }
 
         dbContext.SaveChanges();
     }

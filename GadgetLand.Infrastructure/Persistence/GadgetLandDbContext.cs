@@ -16,6 +16,7 @@ public class GadgetLandDbContext(DbContextOptions<GadgetLandDbContext> options) 
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Province> Provinces { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Setting> Settings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
