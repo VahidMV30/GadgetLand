@@ -17,6 +17,10 @@ public class GadgetLandDbContext(DbContextOptions<GadgetLandDbContext> options) 
     public DbSet<Province> Provinces { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Setting> Settings { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<PaymentItem> PaymentItems { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

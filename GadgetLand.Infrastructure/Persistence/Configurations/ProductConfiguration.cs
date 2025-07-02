@@ -17,5 +17,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(x => x.Brand).WithMany(x => x.Products).HasForeignKey(x => x.BrandId);
         builder.HasMany(x => x.ProductImages).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
         builder.HasMany(x => x.Reviews).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+        builder.HasMany(x => x.PaymentItems).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+        builder.HasMany(x => x.OrderItems).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
     }
 }

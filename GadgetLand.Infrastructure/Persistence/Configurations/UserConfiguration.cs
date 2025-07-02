@@ -18,5 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(x => x.Role).WithMany(x => x.Users).HasForeignKey(x => x.RoleId);
         builder.HasMany(x => x.Reviews).WithOne(x => x.User).HasForeignKey(x => x.UserId);
         builder.HasOne(x => x.City).WithMany(x => x.Users).HasForeignKey(x => x.CityId);
+        builder.HasMany(x => x.Payments).WithOne(x => x.User).HasForeignKey(x => x.UserId);
+        builder.HasMany(x => x.Orders).WithOne(x => x.User).HasForeignKey(x => x.UserId);
     }
 }

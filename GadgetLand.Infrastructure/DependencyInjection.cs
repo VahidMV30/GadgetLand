@@ -48,10 +48,12 @@ public static class DependencyInjection
         });
 
         services.AddHttpContextAccessor();
+        services.AddHttpClient();
 
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<GadgetLandDbContext>());
 
         services.AddScoped<ISecurityService, SecurityService>();
+        services.AddScoped<IPaymentService, ZarinPalPaymentService>();
 
         services.AddScoped<IRolesRepository, RolesRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
@@ -62,6 +64,8 @@ public static class DependencyInjection
         services.AddScoped<IProvincesRepository, ProvincesRepository>();
         services.AddScoped<ICitiesRepository, CitiesRepository>();
         services.AddScoped<ISettingsRepository, SettingsRepository>();
+        services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+        services.AddScoped<IOrdersRepository, OrdersRepository>();
 
         return services;
     }

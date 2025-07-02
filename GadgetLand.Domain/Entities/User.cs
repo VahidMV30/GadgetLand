@@ -18,4 +18,6 @@ public class User
     public string? Address { get; set; } = string.Empty;
 
     public ICollection<Review> Reviews { get; set; } = [];
+    public ICollection<Payment> Payments { get; set; } = [];
+    public ICollection<Order> Orders { get; set; } = [];
 }

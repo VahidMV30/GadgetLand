@@ -20,4 +20,6 @@ public class Product
 
     public ICollection<ProductImage> ProductImages { get; set; } = [];
     public ICollection<Review> Reviews { get; set; } = [];
+    public ICollection<PaymentItem> PaymentItems { get; set; } = [];
+    public ICollection<OrderItem> OrderItems { get; set; } = [];
 }
