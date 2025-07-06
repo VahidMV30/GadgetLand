@@ -55,8 +55,8 @@ public class VerifyPaymentQueryHandler(
 
         return new VerifyPaymentResponse
         {
-            OrderId = 100,
-            Message = $"سفارش شما با کد {100} با موفقیت ثبت شد. کد رهگیری پرداخت: {payment.RefId}"
+            OrderId = order.Id,
+            Message = $"سفارش شما با کد {order.Id} با موفقیت ثبت شد. کد رهگیری پرداخت: {payment.RefId}"
         };
     }
 }

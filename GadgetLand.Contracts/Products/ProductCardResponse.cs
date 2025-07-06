@@ -1,6 +1,6 @@
 ﻿namespace GadgetLand.Contracts.Products;
 
-public record ProductsWithFiltersResponse
+public record ProductCardResponse
 {
     public string Name { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;

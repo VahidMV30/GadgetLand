@@ -100,4 +100,52 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
     {
         return await dbContext.Products.Where(x => ids.Contains(x.Id)).ToListAsync();
     }
+
+    public async Task<IEnumerable<Product>> GetDiscountedProductsAsync(int count)
+    {
+        return await dbContext.Products
+            .Where(product => product.DiscountPrice != null)
+            .OrderByDescending(product => Math.Round(((decimal)(product.Price - product.DiscountPrice!.Value) / product.Price) * 100, 0))
+            .Take(count)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Product>> GetTopSellingProductsAsync(int count)
+    {
+        var query = dbContext.OrderItems
+            .GroupBy(oi => oi.ProductId)
+            .Select(g => new
+            {
+                ProductId = g.Key,
+                MostSales = g.Sum(oi => oi.Quantity)
+            })
+            .Join(dbContext.Products,
+                ms => ms.ProductId,
+                p => p.Id,
+                (ms, p) => new
+                {
+                    Product = new Product
+                    {
+                        Name = p.Name,
+                        Slug = p.Slug,
+                        Image = p.Image,
+                        Price = p.Price,
+                        DiscountPrice = p.DiscountPrice
+                    },
+                    TotalQuantitySold = ms.MostSales
+                }
+            )
+            .OrderByDescending(x => x.TotalQuantitySold)
+            .ThenByDescending(x => x.Product.DiscountPrice)
+            .Select(x => x.Product)
+            .Take(count);
+
+        return await query.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<IEnumerable<Product>> GetLatestProductsAsync(int count)
+    {
+        return await dbContext.Products.OrderByDescending(product => product.Id).Take(count).AsNoTracking().ToListAsync();
+    }
 }

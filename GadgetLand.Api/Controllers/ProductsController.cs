@@ -2,11 +2,14 @@
 using GadgetLand.Application.Features.Products.Commands.ModifyProductImages;
 using GadgetLand.Application.Features.Products.Commands.UpdateProduct;
 using GadgetLand.Application.Features.Products.Queries.GetCartProductsByIds;
+using GadgetLand.Application.Features.Products.Queries.GetDiscountedProducts;
+using GadgetLand.Application.Features.Products.Queries.GetLatestProducts;
 using GadgetLand.Application.Features.Products.Queries.GetProductById;
 using GadgetLand.Application.Features.Products.Queries.GetProductDetailsBySlug;
 using GadgetLand.Application.Features.Products.Queries.GetProductsForAdminTable;
 using GadgetLand.Application.Features.Products.Queries.GetProductsWithFilters;
 using GadgetLand.Application.Features.Products.Queries.GetProductWithImagesById;
+using GadgetLand.Application.Features.Products.Queries.GetTopSellingProducts;
 using GadgetLand.Contracts.Products;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -109,6 +112,36 @@ public class ProductsController(IMediator mediator) : ApiController
     public async Task<IActionResult> GetCartProductsByIds(List<int> ids)
     {
         var query = new GetCartProductsByIdsQuery(ids);
+
+        var result = await mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    [HttpGet("discounted-products/{count:int?}")]
+    public async Task<IActionResult> GetDiscountedProducts(int count = 10)
+    {
+        var query = new GetDiscountedProductsQuery(count);
+
+        var result = await mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    [HttpGet("top-selling-products/{count:int?}")]
+    public async Task<IActionResult> GetTopSellingProducts([FromRoute] int count = 10)
+    {
+        var query = new GetTopSellingProductsQuery(count);
+
+        var result = await mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    [HttpGet("latest-products/{count:int?}")]
+    public async Task<IActionResult> GetLatestProducts([FromRoute] int count = 10)
+    {
+        var query = new GetLatestProductsQuery(count);
 
         var result = await mediator.Send(query);
 

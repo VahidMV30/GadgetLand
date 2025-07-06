@@ -29,6 +29,13 @@ public class GadgetLandDbContext(DbContextOptions<GadgetLandDbContext> options) 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.LogTo(Console.WriteLine);
+
+        base.OnConfiguring(optionsBuilder);
+    }
+
     public async Task CommitChangesAsync()
     {
         await base.SaveChangesAsync();

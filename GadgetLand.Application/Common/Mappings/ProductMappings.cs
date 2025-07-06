@@ -48,7 +48,7 @@ public class ProductMappings : Profile
             .ForMember(dest => dest.DiscountPrice, opt => opt.MapFrom(src =>
                 string.IsNullOrWhiteSpace(src.DiscountPrice) ? null : src.DiscountPrice.ParsePriceToLong()));
 
-        CreateMap<Product, ProductsWithFiltersResponse>()
+        CreateMap<Product, ProductCardResponse>()
         .ForMember(dest => dest.Price, opt =>
             opt.MapFrom(src => src.Price.ParsePriceToString()))
         .ForMember(dest => dest.DiscountPrice, opt =>

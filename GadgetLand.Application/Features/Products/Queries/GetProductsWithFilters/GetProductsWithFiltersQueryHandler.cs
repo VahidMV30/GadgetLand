@@ -14,7 +14,7 @@ public class GetProductsWithFiltersQueryHandler(
         var (totalCount, products) = await productsRepository.GetProductsWithFiltersAsync(
             query.CategorySlug, query.BrandSlug, query.OnlyDiscounted, query.SortOrder, query.PageIndex, query.PageSize);
 
-        var mappedProducts = mapper.Map<IEnumerable<ProductsWithFiltersResponse>>(products);
+        var mappedProducts = mapper.Map<IEnumerable<ProductCardResponse>>(products);
 
         return new PaginatedProductsWithFiltersResponse
         {
