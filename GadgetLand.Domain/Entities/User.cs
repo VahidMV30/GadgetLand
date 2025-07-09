@@ -16,6 +16,7 @@ public class User
     public string? Mobile { get; set; } = string.Empty;
     public string? PostalCode { get; set; } = string.Empty;
     public string? Address { get; set; } = string.Empty;
+    public DateTime RegisterDate { get; set; } = DateTime.Now;
 
     public ICollection<Review> Reviews { get; set; } = [];
     public ICollection<Payment> Payments { get; set; } = [];

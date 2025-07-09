@@ -33,7 +33,7 @@ public class VerifyPaymentQueryHandler(
         if (result.IsSuccess is false) return PaymentErrors.Failure(result.Message);
 
         payment.IsPaid = true;
-        payment.PaidAt = DateTime.UtcNow;
+        payment.PaidAt = DateTime.Now;
         payment.RefId = result.RefId;
 
         paymentsRepository.Update(payment);

@@ -15,7 +15,7 @@ public class Payment
     public bool IsPaid { get; set; }
     public long? RefId { get; set; }
     public DateTime? PaidAt { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public ICollection<PaymentItem> PaymentItems { get; set; } = [];
 }

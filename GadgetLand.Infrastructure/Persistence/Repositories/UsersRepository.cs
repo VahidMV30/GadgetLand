@@ -18,4 +18,27 @@ public class UsersRepository(GadgetLandDbContext dbContext) : BaseRepository<int
             .ThenInclude(x => x!.Province)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    {
+        return await dbContext.Users
+            .Include(user => user.City)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            .ThenInclude(city => city.Province)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<User?> GetUserDetailsWithOrdersAsync(int userId)
+    {
+        return await dbContext.Users
+            .Include(user => user.City)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            .ThenInclude(city => city.Province)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            .Include(user => user.Orders)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(user => user.Id == userId);
+    }
 }

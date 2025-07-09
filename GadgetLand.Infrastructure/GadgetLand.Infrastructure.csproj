@@ -7,23 +7,23 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-	  <PackageReference Include="Dapper" Version="2.1.66" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	  <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
-	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+		<PackageReference Include="Dapper" Version="2.1.66" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\GadgetLand.Application\GadgetLand.Application.csproj" />
-	  <ProjectReference Include="..\GadgetLand.Domain\GadgetLand.Domain.csproj" />
+		<ProjectReference Include="..\GadgetLand.Application\GadgetLand.Application.csproj" />
+		<ProjectReference Include="..\GadgetLand.Domain\GadgetLand.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

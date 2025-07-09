@@ -40,5 +40,7 @@ public static class SeedData
         }
 
         dbContext.SaveChanges();
+
+        dbContext.Database.ExecuteSqlRaw(Scripts.SpGetProductsWithFilters);
     }
 }

@@ -5,5 +5,6 @@ public enum ProductSortOrder
     Latest,
     Oldest,
     Cheapest,
-    Expensive
+    Expensive,
+    TopSales
 }

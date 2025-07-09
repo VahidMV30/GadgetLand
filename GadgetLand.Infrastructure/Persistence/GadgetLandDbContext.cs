@@ -31,7 +31,7 @@ public class GadgetLandDbContext(DbContextOptions<GadgetLandDbContext> options) 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.LogTo(Console.WriteLine);
+        //optionsBuilder.LogTo(Console.WriteLine);
 
         base.OnConfiguring(optionsBuilder);
     }

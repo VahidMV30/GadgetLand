@@ -16,7 +16,7 @@ public class Order
     public long SubtotalAmount { get; set; }
     public long TotalPayableAmount { get; set; }
     public long? RefId { get; set; }
-    public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+    public DateTime OrderDate { get; set; } = DateTime.Now;
 
     public ICollection<OrderItem> OrderItems { get; set; } = [];
 }
