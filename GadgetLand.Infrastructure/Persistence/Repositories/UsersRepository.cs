@@ -41,4 +41,14 @@ public class UsersRepository(GadgetLandDbContext dbContext) : BaseRepository<int
             .AsNoTracking()
             .FirstOrDefaultAsync(user => user.Id == userId);
     }
+
+    public async Task<User?> GetUserDetailsByIdAsync(int userId)
+    {
+        return await dbContext.Users
+            .Include(user => user.City)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            .ThenInclude(city => city.Province)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            .FirstOrDefaultAsync(user => user.Id == userId);
+    }
 }

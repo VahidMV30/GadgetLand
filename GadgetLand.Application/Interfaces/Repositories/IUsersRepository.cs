@@ -8,4 +8,5 @@ public interface IUsersRepository : IBaseRepository<int, User>
     Task<User?> GetUserAddressInfoByIdAsync(int id);
     Task<IEnumerable<User>> GetAllUsersAsync();
     Task<User?> GetUserDetailsWithOrdersAsync(int userId);
+    Task<User?> GetUserDetailsByIdAsync(int userId);
 }

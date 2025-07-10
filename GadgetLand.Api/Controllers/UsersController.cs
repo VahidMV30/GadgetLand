@@ -1,5 +1,7 @@
 ﻿using GadgetLand.Application.Features.Users.Commands.UpdateUserAddressInfo;
+using GadgetLand.Application.Features.Users.Commands.UpdateUserInfo;
 using GadgetLand.Application.Features.Users.Queries.GetUserAddressInfo;
+using GadgetLand.Application.Features.Users.Queries.GetUserDetailsById;
 using GadgetLand.Application.Features.Users.Queries.GetUserDetailsWithOrders;
 using GadgetLand.Application.Features.Users.Queries.GetUsersForAdminTable;
 using GadgetLand.Contracts.Users;
@@ -53,6 +55,28 @@ public class UsersController(IMediator mediator) : ApiController
         var query = new GetUserDetailsWithOrdersQuery(userId);
 
         var result = await mediator.Send(query);
+
+        return result.Match(Ok, Problem);
+    }
+
+    [HttpGet("user-details")]
+    [Authorize(Roles = "User")]
+    public async Task<IActionResult> GetUserDetailsById()
+    {
+        var query = new GetUserDetailsByIdQuery();
+
+        var result = await mediator.Send(query);
+
+        return result.Match(Ok, Problem);
+    }
+
+    [HttpPut]
+    [Authorize(Roles = "User")]
+    public async Task<IActionResult> UpdateUserInfo([FromBody] UpdateUserInfoRequest request)
+    {
+        var command = new UpdateUserInfoCommand(request.CityId, request.FullName, request.Mobile, request.PostalCode, request.Address);
+
+        var result = await mediator.Send(command);
 
         return result.Match(Ok, Problem);
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GadgetLand.Application.Common.Extensions;
 using GadgetLand.Application.Features.Users.Commands.UpdateUserAddressInfo;
+using GadgetLand.Application.Features.Users.Commands.UpdateUserInfo;
 using GadgetLand.Contracts.Users;
 using GadgetLand.Domain.Entities;
 
@@ -31,6 +32,8 @@ public class UserMappings : Profile
                 opt.MapFrom(src => src.RegisterDate.ToPersianDateString()));
 
         CreateMap<User, UserDetailsResponse>()
+            .ForMember(dest => dest.ProvinceId, opt =>
+                opt.MapFrom(src => src.City != null ? src.City.Province.Id : (int?)null))
             .ForMember(dest => dest.Province, opt =>
                 opt.MapFrom(src => src.City != null ? src.City.Province.Name : ""))
             .ForMember(dest => dest.City, opt =>
@@ -39,5 +42,7 @@ public class UserMappings : Profile
                 opt.MapFrom(src => src.RegisterDate.ToPersianDateString()));
 
         CreateMap<User, UserInOrderResponse>();
+
+        CreateMap<UpdateUserInfoCommand, User>();
     }
 }
