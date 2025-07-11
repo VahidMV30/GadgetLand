@@ -29,4 +29,27 @@ public class OrdersRepository(GadgetLandDbContext dbContext) : BaseRepository<in
             .AsNoTracking()
             .FirstOrDefaultAsync(order => order.Id == orderId);
     }
+
+    public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId)
+    {
+        return await dbContext.Orders
+            .Where(order => order.User.Id == userId)
+            .OrderBy(order => order.OrderStatus)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<Order?> GetOrderWithItemsByIdAsync(int orderId, int userId)
+    {
+        return await dbContext.Orders
+            .AsNoTracking()
+            .Include(order => order.User)
+            .ThenInclude(user => user.City)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            .ThenInclude(city => city.Province)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            .Include(order => order.OrderItems)
+            .ThenInclude(orderItem => orderItem.Product)
+            .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
+    }
 }

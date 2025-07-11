@@ -30,5 +30,17 @@ public class OrderMappings : Profile
                 opt.MapFrom(src => src.TotalPayableAmount.ParsePriceToString()))
             .ForMember(dest => dest.OrderDate, opt =>
                 opt.MapFrom(src => src.OrderDate.ToPersianDateTimeString()));
+
+        CreateMap<Order, OrderForUserPanelResponse>()
+            .ForMember(dest => dest.DiscountAmount, opt =>
+                opt.MapFrom(src => src.DiscountAmount.ParsePriceToString()))
+            .ForMember(dest => dest.ShippingCost, opt =>
+                opt.MapFrom(src => src.ShippingCost.ParsePriceToString()))
+            .ForMember(dest => dest.SubtotalAmount, opt =>
+                opt.MapFrom(src => src.SubtotalAmount.ParsePriceToString()))
+            .ForMember(dest => dest.TotalPayableAmount, opt =>
+                opt.MapFrom(src => src.TotalPayableAmount.ParsePriceToString()))
+            .ForMember(dest => dest.OrderDate, opt =>
+                opt.MapFrom(src => src.OrderDate.ToPersianDateTimeString()));
     }
 }
