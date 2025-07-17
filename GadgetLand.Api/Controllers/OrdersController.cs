@@ -1,5 +1,6 @@
 ﻿using GadgetLand.Application.Features.Orders.Commands.ChangeOrderStatusById;
 using GadgetLand.Application.Features.Orders.Queries.GetAllOrders;
+using GadgetLand.Application.Features.Orders.Queries.GetLastOrderWithItemsByUserId;
 using GadgetLand.Application.Features.Orders.Queries.GetOrdersByUserId;
 using GadgetLand.Application.Features.Orders.Queries.GetOrderWithItemsAndUserById;
 using GadgetLand.Application.Features.Orders.Queries.GetOrderWithItemsById;
@@ -62,6 +63,17 @@ public class OrdersController(IMediator mediator) : ApiController
     public async Task<IActionResult> GetOrderWithItemsById([FromRoute] int orderId)
     {
         var query = new GetOrderWithItemsByIdQuery(orderId);
+
+        var result = await mediator.Send(query);
+
+        return result.Match(Ok, Problem);
+    }
+
+    [HttpGet("last-order-with-items-userId")]
+    [Authorize(Roles = "User")]
+    public async Task<IActionResult> GetLastOrderWithItemsByUserId()
+    {
+        var query = new GetLastOrderWithItemsByUserIdQuery();
 
         var result = await mediator.Send(query);
 

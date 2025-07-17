@@ -5,7 +5,6 @@ using GadgetLand.Application.Features.Users.Queries.GetUserDetailsById;
 using GadgetLand.Application.Features.Users.Queries.GetUserDetailsWithOrders;
 using GadgetLand.Application.Features.Users.Queries.GetUsersForAdminTable;
 using GadgetLand.Contracts.Users;
-using GadgetLand.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

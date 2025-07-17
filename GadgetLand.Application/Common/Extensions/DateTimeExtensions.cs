@@ -57,4 +57,70 @@ public static class DateTimeExtensions
         var pc = new PersianCalendar();
         return pc.ToDateTime(year, month, day, hour, minute, second, 0);
     }
+
+    public static (DateTime startOfCurrentMonth, DateTime startOfNextMonth) GetCurrentPersianMonthRange()
+    {
+        var iranZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, iranZone);
+
+        var pc = new PersianCalendar();
+        var year = pc.GetYear(now);
+        var month = pc.GetMonth(now);
+
+        var startOfCurrentMonth = pc.ToDateTime(year, month, 1, 0, 0, 0, 0);
+
+        var startOfNextMonth = month == 12
+            ? pc.ToDateTime(year + 1, 1, 1, 0, 0, 0, 0)
+            : pc.ToDateTime(year, month + 1, 1, 0, 0, 0, 0);
+
+        return (startOfCurrentMonth, startOfNextMonth);
+    }
+
+    private static int GetDaysInPersianMonth(int year, int month)
+    {
+        switch (month)
+        {
+            case <= 6: return 31;
+            case <= 11: return 30;
+            default:
+                var pc = new PersianCalendar();
+                return pc.IsLeapYear(year) ? 30 : 29;
+        }
+    }
+
+    public static (DateTime startOfToday, DateTime startOfTomorrow) GetTodayRange()
+    {
+        var iranZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+        var nowInIran = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, iranZone);
+
+        var pc = new PersianCalendar();
+        var year = pc.GetYear(nowInIran);
+        var month = pc.GetMonth(nowInIran);
+        var day = pc.GetDayOfMonth(nowInIran);
+
+        var startOfToday = pc.ToDateTime(year, month, day, 0, 0, 0, 0);
+
+        var startOfTomorrow = startOfToday.AddDays(1);
+
+        return (startOfToday, startOfTomorrow);
+    }
+
+    public static (DateTime startOfCurrentPersianYear, DateTime startOfNextPersianYear) GetCurrentPersianYearRange(this int persianYear)
+    {
+        var pc = new PersianCalendar();
+
+        var startOfCurrentPersianYear = pc.ToDateTime(persianYear, 1, 1, 0, 0, 0, 0);
+        var startOfNextPersianYear = pc.ToDateTime(persianYear + 1, 1, 1, 0, 0, 0, 0);
+
+        var endOfCurrentPersianYear = startOfNextPersianYear.AddDays(-1);
+
+        return (startOfCurrentPersianYear, endOfCurrentPersianYear);
+    }
+
+    public static int GetCurrentPersianYear(this DateTime dateTime)
+    {
+        var pc = new PersianCalendar();
+
+        return pc.GetYear(dateTime);
+    }
 }

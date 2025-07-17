@@ -8,4 +8,5 @@ public interface IOrdersRepository : IBaseRepository<int, Order>
     Task<Order?> GetOrderWithItemsAndUserByIdAsync(int orderId);
     Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId);
     Task<Order?> GetOrderWithItemsByIdAsync(int orderId, int userId);
+    Task<Order?> GetLastOrderWithItemsByUserIdAsync(int userId);
 }

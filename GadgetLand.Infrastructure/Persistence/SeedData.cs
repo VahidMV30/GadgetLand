@@ -41,6 +41,12 @@ public static class SeedData
 
         dbContext.SaveChanges();
 
-        dbContext.Database.ExecuteSqlRaw(Scripts.SpGetProductsWithFilters);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboProductsWithFilters);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboAdminDashboardWidgets);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboGetPersianMonthName);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboSalesByPersianMonthOfYear);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboTopFiveCitiesBySalesOfYear);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboTopFiveProvincesBySalesOfYear);
+        dbContext.Database.ExecuteSqlRaw(Scripts.DboUserDashboardWidgets);
     }
 }

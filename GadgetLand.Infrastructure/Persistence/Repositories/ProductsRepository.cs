@@ -59,7 +59,7 @@ public class ProductsRepository(GadgetLandDbContext dbContext) : BaseRepository<
         parameters.Add("@PageIndex", pageIndex);
         parameters.Add("@PageSize", pageSize);
 
-        const string query = "SP_GetProductsWithFilters";
+        const string query = "dbo.ProductsWithFilters";
 
         await using var multi = await _dbConnection.QueryMultipleAsync(query, parameters, commandType: CommandType.StoredProcedure);
 

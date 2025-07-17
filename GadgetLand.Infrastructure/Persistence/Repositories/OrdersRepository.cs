@@ -52,4 +52,15 @@ public class OrdersRepository(GadgetLandDbContext dbContext) : BaseRepository<in
             .ThenInclude(orderItem => orderItem.Product)
             .FirstOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
     }
+
+    public async Task<Order?> GetLastOrderWithItemsByUserIdAsync(int userId)
+    {
+        return await dbContext.Orders
+            .Include(order => order.OrderItems)
+            .ThenInclude(order => order.Product)
+            .Where(order => order.UserId == userId)
+            .OrderByDescending(order => order.UserId)
+            .Take(1)
+            .FirstOrDefaultAsync();
+    }
 }
